@@ -1,0 +1,29 @@
+project(sfml_gol)
+
+cmake_minimum_required(VERSION 3.13.0)
+
+add_executable(sfml_gol)
+
+set_property(TARGET sfml_gol PROPERTY CXX_STANDARD 20)
+
+find_package(SFML 3 COMPONENTS System Window Graphics Network Audio Main REQUIRED)
+
+target_sources(sfml_gol PRIVATE
+    src/main.cpp
+    src/game_manager.cpp
+    src/grid_cell.cpp
+    src/grid.cpp
+)
+
+target_include_directories(sfml_gol PRIVATE 
+    inc/
+    ${SFML_DIR}/../../../include        # required otherwise can't find SFML headers
+)
+
+target_link_directories(sfml_gol PRIVATE
+    ${SFML_DIR}/../..       # required otherwise can't find SFML libraries when linking
+)
+
+target_link_libraries (sfml_gol sfml-audio sfml-graphics sfml-network sfml-system sfml-window)
+
+
